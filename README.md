@@ -2,6 +2,30 @@
 
 
 
+# Modifications to this repo
+
+_This repo is modified to accommodate using a modified panda-gym PandaReach environment with various algorithms that do not have hyperparameters set in the original rl-baselines3-zoo repo_
+
+To train an env, use the standard syntax as seen below:
+
+```sh
+python train.py --algo ppo --env PandaReach-v1 --tensorboard-log runs/stable-baselines/ --save-freq 100000
+```
+
+To view the trained policy, run:
+
+```sh
+python enjoy.py --env PandaReach-v1 --algo ppo -f logs/ --exp-id 0 --env-kwargs render:True
+```
+
+To view the training results in tensorboard, run:
+
+```sh
+tensorboard --logdir runs/stable-baselines/
+```
+
+and go to the link printed in the terminal.
+
 # RL Baselines3 Zoo: A Training Framework for Stable Baselines3 Reinforcement Learning Agents
 
 <img src="images/panda_pick.gif" align="right" width="35%"/>
@@ -193,7 +217,7 @@ Note that the default hyperparameters used in the zoo when tuning are not always
 
 - PPO tuning assumes a network architecture with `ortho_init = False` when tuning, though it is `True` by [default](https://stable-baselines3.readthedocs.io/en/master/modules/ppo.html#ppo-policies). You can change that by updating [utils/hyperparams_opt.py](https://github.com/DLR-RM/rl-baselines3-zoo/blob/master/utils/hyperparams_opt.py).
 
-- Non-episodic rollout in TD3 and DDPG assumes `gradient_steps = train_freq` and so tunes only `train_freq` to reduce the search space.  
+- Non-episodic rollout in TD3 and DDPG assumes `gradient_steps = train_freq` and so tunes only `train_freq` to reduce the search space.
 
 When working with continuous actions, we recommend to enable [gSDE](https://arxiv.org/abs/2005.05719) by uncommenting lines in [utils/hyperparams_opt.py](https://github.com/DLR-RM/rl-baselines3-zoo/blob/master/utils/hyperparams_opt.py).
 
