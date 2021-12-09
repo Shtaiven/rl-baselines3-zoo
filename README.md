@@ -9,13 +9,13 @@ _This repo is modified to accommodate using a modified panda-gym PandaReach envi
 To train an env, use the standard syntax as seen below:
 
 ```sh
-python train.py --algo ppo --env PandaReach-v1 --tensorboard-log runs/stable-baselines/ --save-freq 100000
+python train.py --algo ppo --env PandaReach-v2 --tensorboard-log runs/stable-baselines/ --save-freq 100000
 ```
 
 To view the trained policy, run:
 
 ```sh
-python enjoy.py --env PandaReach-v1 --algo ppo -f logs/ --exp-id 0 --env-kwargs render:True
+python enjoy.py --env PandaReach-v2 --algo ppo --exp-id 0 --env-kwargs render:True
 ```
 
 To view the training results in tensorboard, run:
