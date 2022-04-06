@@ -11,10 +11,12 @@ colorama.init()
 
 def run():
     source_dir = Path(__file__).parent
-    envs = ["PandaReach-v2", "PandaReachJoints-v2"]
+    # envs = ["PandaReach-v2", "PandaReachJoints-v2"]
+    envs = ["PandaReachJoints-v2"]
     algos = ["ppo"]
-    obstacles = ["bin", "L", None]
-    reward_types = ["pid", "sparse", "dense"]
+    # obstacles = ["bin", "L", "inline", None]
+    obstacles = ["bin"]
+    reward_types = ["pid", "dense"]
     for algo in algos:
         for env in envs:
             for obstacle in obstacles:
