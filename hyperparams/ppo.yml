@@ -565,7 +565,7 @@ Walker2d-v3:
 # === Custom Envs ===
 PandaReach-v1: &pandareach
   env_wrapper: sb3_contrib.common.wrappers.TimeFeatureWrapper
-  n_envs: 4
+  n_envs: 8
   n_timesteps: !!float 1e6
   policy: 'MultiInputPolicy'
   normalize: true
