@@ -16,7 +16,7 @@ def run():
     algos = ["ppo"]
     # obstacles = ["bin", "L", "inline", None]
     obstacles = ["bin"]
-    reward_types = ["pid", "dense"]
+    reward_types = ["pid", "dense", "sparse"]
     for algo in algos:
         for env in envs:
             for obstacle in obstacles:
