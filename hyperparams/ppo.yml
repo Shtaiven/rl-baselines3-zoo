@@ -566,7 +566,7 @@ Walker2d-v3:
 PandaReach-v1: &pandareach
   n_envs: 8
   n_timesteps: !!float 1e6
-  policy: 'MlpPolicy'
+  policy: 'MultiInputPolicy'
   normalize: true
   policy_kwargs: "dict(net_arch=[256, 256])"
   batch_size: 32
