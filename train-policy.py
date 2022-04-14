@@ -107,6 +107,7 @@ def train(
 
 
 def run(args):
+    separate_obstacles = args.separate_obstacles
     source_dir = Path(__file__).parent
     envs = ["PandaReach-v2", "PandaReachJoints-v2"]
     algo = "ppo"
@@ -144,8 +145,12 @@ def run(args):
                     trained_agent=prev_trained_agent,
                     verbose=0,
                 )
-                prev_trained_agent = str(Path(exp_manager.save_path) / "best_model.zip")
-            trained_agents[f"{env}_{reward_type}"] = prev_trained_agent
+                if not separate_obstacles:
+                    prev_trained_agent = str(Path(exp_manager.save_path) / "best_model.zip")
+                else:
+                    trained_agents[f"{env}_{reward_type}_{obstacle}"] = str(Path(exp_manager.save_path) / "best_model.zip")
+            if not separate_obstacles:
+                trained_agents[f"{env}_{reward_type}"] = prev_trained_agent
 
     # Print the locations of the trained agents
     print(f"\n\n{Style.BRIGHT}{Fore.CYAN}Trained agent locations:{Style.RESET_ALL}")
@@ -347,6 +352,13 @@ if __name__ == "__main__":
         action="store_true",
         default=False,
         help="Ensure that the run has a unique ID",
+    )
+    parser.add_argument(
+        "-s",
+        "--separate-obstacles",
+        action="store_true",
+        default=False,
+        help="Train a separate policy for each obstacle instead concurrently training a policy with each obstacle",
     )
     args = parser.parse_args()
 
