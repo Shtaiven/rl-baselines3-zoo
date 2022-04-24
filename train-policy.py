@@ -108,10 +108,11 @@ def train(
 
 def run(args):
     separate_obstacles = args.separate_obstacles
+    init_pose_type = "neutral" if args.no_random_init else "random"
     source_dir = Path(__file__).parent
     envs = ["PandaReach-v2", "PandaReachJoints-v2"]
     algo = "ppo"
-    obstacles = [None, "bin", "L"]
+    obstacles = [None, "inline", "bin", "L"]
     reward_types = ["pid", "dense", "sparse"]
     P, I, D = [5.0, 5.0, 1.0]
     trained_agents = {}
@@ -140,6 +141,7 @@ def run(args):
                         "reward_type": reward_type,
                         "obstacle_type": obstacle,
                         "reward_weights": [P, I, D],
+                        "init_pose_type": init_pose_type,
                     },
                     uuid_str=uuid_str,
                     trained_agent=prev_trained_agent,
@@ -359,6 +361,12 @@ if __name__ == "__main__":
         action="store_true",
         default=False,
         help="Train a separate policy for each obstacle instead concurrently training a policy with each obstacle",
+    )
+    parser.add_argument(
+        "--no-random-init",
+        action="store_true",
+        default=False,
+        help="Don't randomize the starting position of the agent",
     )
     args = parser.parse_args()
 
