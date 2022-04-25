@@ -109,6 +109,7 @@ def train(
 def run(args):
     separate_obstacles = args.separate_obstacles
     init_pose_type = "neutral" if args.no_random_init else "random"
+    goal_pose_type = "fixed" if args.no_random_goal else "random"
     source_dir = Path(__file__).parent
     envs = ["PandaReach-v2", "PandaReachJoints-v2"]
     algo = "ppo"
@@ -142,6 +143,7 @@ def run(args):
                         "obstacle_type": obstacle,
                         "reward_weights": [P, I, D],
                         "init_pose_type": init_pose_type,
+                        "goal_pose_type": goal_pose_type,
                     },
                     uuid_str=uuid_str,
                     trained_agent=prev_trained_agent,
@@ -367,6 +369,12 @@ if __name__ == "__main__":
         action="store_true",
         default=False,
         help="Don't randomize the starting position of the agent",
+    )
+    parser.add_argument(
+        "--no-random-goal",
+        action="store_true",
+        default=False,
+        help="Don't randomize the goal position of the task",
     )
     args = parser.parse_args()
 
